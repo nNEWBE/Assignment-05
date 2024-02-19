@@ -86,7 +86,7 @@ btn.addEventListener('click', function () {
     const h = document.getElementById('hidden');
 
     if (coupon.toUpperCase() === "NEW15") {
-        const discoutAmount = priceCount * .2;
+        const discoutAmount = priceCount * .15;
         d.innerText = discoutAmount;
         const restTotal = grandTotalCount - discoutAmount;
         grand.innerText = restTotal;
@@ -94,7 +94,7 @@ btn.addEventListener('click', function () {
         document.getElementById('coupon').value = '';
     }
     else if (coupon.toUpperCase() === "COUPLE 20") {
-        const discoutAmount = priceCount * .15;
+        const discoutAmount = priceCount * .2;
         d.innerText = discoutAmount;
         const restTotal = grandTotalCount - discoutAmount;
         grand.innerText = restTotal;
