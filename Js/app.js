@@ -29,6 +29,7 @@ for (const b of buttons) {
         addDiv.classList.add('mb-3');
 
         if (appendedDiv === 4) {
+            alert("You can't select more seat");
             return;
         }
 
@@ -113,10 +114,9 @@ num.addEventListener('keyup', function () {
     const numbers = parseFloat(num.value);
     console.log(typeof numbers === 'number' && !isNaN(numbers));
 
-    if (typeof numbers === 'number' && !isNaN(numbers)) {
+    if (typeof numbers === 'number' && !isNaN(numbers) && appendedDiv > 0) {
         disable.removeAttribute('disabled');
     } else {
         disable.setAttribute('disabled', 'disabled');
     }
 });
-
