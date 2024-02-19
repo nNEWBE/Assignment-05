@@ -8,19 +8,12 @@
     font-family: "Raleway", sans-serif;
 }
 
-.kbd{
+.btn-k{
     margin: 1rem;
     background-color: #F7F8F8;
-    color: #03071280;
+    color: #4b4c5080;
     border: none;
     width: 90px;
     height: 50px;
 }
 
-/* .serial{
-    margin-right: 1rem;
-} */
-
-/* .m-2{
-    margin-right: 2rem;
-} */
