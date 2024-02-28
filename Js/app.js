@@ -4,12 +4,15 @@ let priceCount = 0;
 let grandTotalCount = 0;
 let seatCount = 0;
 let seatLeft = 40;
+let deleteDiv = 0;
+let priceAdded = 0;
 for (const b of buttons) {
     let clickCount = 0;
 
 
     b.addEventListener('click', function () {
         clickCount++;
+
 
         const buttonTitle = b.innerText;
         const titleContainer = document.getElementById('list-1');
@@ -28,9 +31,69 @@ for (const b of buttons) {
         addDiv.classList.add('w-full');
         addDiv.classList.add('mb-3');
 
+        // console.log(appendedDiv);
+        // console.log(priceAdded);
+        // console.log('c',clickCount);
+
+        if (priceAdded === 3) {
+            const btn = document.getElementById('apply');
+            btn.removeAttribute('disabled');
+            // priceAdded++;
+            // priceAdded=3;
+            // console.log(priceAdded);
+            // priceAdded=0;
+        }
+        else {
+            btn.setAttribute('disabled', true);
+            // console.log(priceAdded);
+
+        }
+
         if (appendedDiv === 4) {
-            alert("You can't select more seat");
-            return;
+
+            if (clickCount % 2 === 0) {
+                b.classList.remove('bg-[#1DD100]');
+                b.classList.remove('text-white');
+
+                const title = document.getElementById('list-1');
+                for (let i = 1; i < title.childNodes.length; i++) {
+                    // console.log(b.innerText);
+                    if (title.childNodes[i].innerText.includes(b.innerText)) {
+                        title.childNodes[i].remove();
+                        break;
+                    }
+                }
+
+                appendedDiv--;
+                priceAdded--;
+                priceCount -= 550;
+                grandTotalCount -= 550;
+                seatCount--;
+                seatLeft++;
+                // console.log('s', priceAdded);
+
+
+            }
+
+            else {
+                alert("You can't select more seat");
+                clickCount--;
+
+                // appendedDiv--;
+                // priceAdded--;
+                // priceCount -= 550;
+                // grandTotalCount -= 550;
+                // seatCount--;
+                // seatLeft++;
+                return;
+            }
+            // appendedDiv--;
+            // priceAdded--;
+            // priceCount -= 550;
+            // grandTotalCount -= 550;
+            // seatCount--;
+            // seatLeft++;
+
         }
 
         else {
@@ -42,37 +105,50 @@ for (const b of buttons) {
 
                 titleContainer.appendChild(addDiv);
                 appendedDiv++;
-
+                priceAdded++;
                 priceCount += 550;
                 grandTotalCount += 550;
                 seatCount++;
                 seatLeft--;
-
+                deleteDiv++;
+                // console.log('m', priceAdded);
 
             } else if (clickCount % 2 === 0) {
                 b.classList.remove('bg-[#1DD100]');
                 b.classList.remove('text-white');
 
-                const lastChild = titleContainer.lastElementChild;
-                if (lastChild) {
-                    titleContainer.removeChild(lastChild);
-                    appendedDiv--;
-                    priceCount -= 550;
-                    grandTotalCount -= 550;
-                    seatCount--;
-                    seatLeft++;
+                const title = document.getElementById('list-1');
+                for (let i = 1; i < title.childNodes.length; i++) {
+                    // console.log(b.innerText);
+                    if (title.childNodes[i].innerText.includes(b.innerText)) {
+                        title.childNodes[i].remove();
+                        break;
+                    }
                 }
+
+
+                appendedDiv--;
+                priceAdded--;
+                priceCount -= 550;
+                grandTotalCount -= 550;
+                seatCount--;
+                seatLeft++;
+                // console.log('me', priceAdded);
+
             }
 
-            const p = document.getElementById('price')
-            p.innerText = priceCount;
-            const g = document.getElementById('grand')
-            g.innerText = grandTotalCount;
-            const s = document.getElementById('seat')
-            s.innerText = seatCount;
-            const sl = document.getElementById('left')
-            sl.innerText = seatLeft;
+
         }
+
+        const p = document.getElementById('price')
+        p.innerText = priceCount;
+        const g = document.getElementById('grand')
+        g.innerText = grandTotalCount;
+        const s = document.getElementById('seat')
+        s.innerText = seatCount;
+        const sl = document.getElementById('left')
+        sl.innerText = seatLeft;
+        // console.log('e', priceAdded);
 
     });
 }
@@ -98,25 +174,44 @@ btn.addEventListener('click', function () {
         d.innerText = discoutAmount;
         const restTotal = grandTotalCount - discoutAmount;
         grand.innerText = restTotal;
-        h.classList.add('hidden')
+        h.classList.add('hidden');
         document.getElementById('coupon').value = '';
     }
     else {
-        alert('Invalid Coupon Card')
+        alert('Invalid Coupon Card');
     }
 
 })
 
 const num = document.getElementById('number');
+const name = document.getElementById('name');
+const email = document.getElementById('email');
 const disable = document.getElementById('disabled');
+const c = document.getElementById('continue');
+
+c.addEventListener('click', function () {
+    location.reload();
+})
+
+
 
 num.addEventListener('keyup', function () {
     const numbers = parseFloat(num.value);
-    console.log(typeof numbers === 'number' && !isNaN(numbers));
+    getNum(numbers);
+});
 
-    if (typeof numbers === 'number' && !isNaN(numbers) && appendedDiv > 0) {
+disable.addEventListener('click', function () {
+    num.value = '';
+    name.value = '';
+    email.value = '';
+    const numbers = parseFloat(num.value);
+    getNum(numbers);
+})
+
+function getNum(n) {
+    if (typeof n === 'number' && !isNaN(n) && appendedDiv > 0) {
         disable.removeAttribute('disabled');
     } else {
         disable.setAttribute('disabled', 'disabled');
     }
-});
+}
